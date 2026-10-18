@@ -5,7 +5,7 @@ use std::{
     task::{Context, Poll},
 };
 
-use bytes::{BufMut, Buf};
+use bytes::{Buf, BufMut};
 
 use crate::{Socket, SocketAddr};
 

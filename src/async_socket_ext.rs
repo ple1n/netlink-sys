@@ -56,9 +56,7 @@ pub trait AsyncSocketExt: AsyncSocket {
     ) -> Poll<io::Result<()>> {
         let c = buf.chunk_mut();
         let len = c.len();
-        let p = unsafe {
-            &mut *(c as *mut _ as *mut [u8])
-        };
+        let p = unsafe { &mut *(c as *mut _ as *mut [u8]) };
         match self.poll_recv(cx, p) {
             Poll::Pending => return Poll::Pending,
             Poll::Ready(k) => Poll::Ready(k.map(|read| {
@@ -70,7 +68,6 @@ pub trait AsyncSocketExt: AsyncSocket {
         }
     }
 
-
     fn poll_recv_from_buf<B: BufMut>(
         &mut self,
         cx: &mut Context<'_>,
@@ -78,9 +75,7 @@ pub trait AsyncSocketExt: AsyncSocket {
     ) -> Poll<io::Result<SocketAddr>> {
         let c = buf.chunk_mut();
         let len = c.len();
-        let p = unsafe {
-            &mut *(c as *mut _ as *mut [u8])
-        };
+        let p = unsafe { &mut *(c as *mut _ as *mut [u8]) };
         match self.poll_recv_from(cx, p) {
             Poll::Pending => return Poll::Pending,
             Poll::Ready(k) => Poll::Ready(k.map(|(read, addr)| {
@@ -92,7 +87,6 @@ pub trait AsyncSocketExt: AsyncSocket {
             })),
         }
     }
-
 }
 
 impl<S: AsyncSocket> AsyncSocketExt for S {}
